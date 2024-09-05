@@ -110,7 +110,7 @@ const upload = multer({ storage: storage });
 
 app.post("/upload", upload.array("product", 6), (req, res) => {
   let imageUrls = req.files.map((file) => {
-    return `http://44.201.85.252/images/${file.filename}`;
+    return `http://18.234.167.23/images/${file.filename}`;
   });
 
   res.json({
@@ -150,7 +150,7 @@ app.use(express.json()); // For parsing application/json
 // Route for image upload
 app.post("/website", productUpload.array("website", 6), (req, res) => {
   let imageUrls = req.files.map(
-    (file) => `http://44.201.85.252/images/${file.filename}`
+    (file) => `http://18.234.167.23/images/${file.filename}`
   );
 
   res.json({
@@ -185,8 +185,8 @@ app.post("/uploadeds", supload.single("image"), (req, res) => {
     return res.status(400).json({ success: 0, message: "No file uploaded" });
   }
 
-  const imageUrl = `http://44.201.85.252/images/${req.file.filename}`;
-  const modelUrl = `http://44.201.85.252/models/${req.file.filename}.glb`;
+  const imageUrl = `http://18.234.167.23/images/${req.file.filename}`;
+  const modelUrl = `http://18.234.167.23/models/${req.file.filename}.glb`;
 
   res.json({
     success: 1,
@@ -201,7 +201,7 @@ app.use("/models", express.static(path.join(__dirname, "models")));
 // const websiteUpload = multer({ storage: websiteStorage });
 
 // app.post("/uploadWebsite", websiteUpload.single("screenshot"), (req, res) => {
-//   const screenshotUrl = `http://44.201.85.252/website_screenshots/${req.file.filename}`;
+//   const screenshotUrl = `http://18.234.167.23/website_screenshots/${req.file.filename}`;
 
 //   res.json({
 //     success: 1,
