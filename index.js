@@ -125,14 +125,6 @@ app.post("/upload", upload.array("product", 6), (req, res) => {
 });
 app.use("/images", express.static("upload/images"));
 
-// for website
-
-// const multer = require("multer");
-// const path = require("path");
-// const express = require("express");
-// const app = express();
-
-// Image Storage Engine for product images
 const productStorage = multer.diskStorage({
   destination: path.join(__dirname, "upload/images"),
   filename: (req, file, cb) => {
@@ -145,9 +137,8 @@ const productStorage = multer.diskStorage({
 
 const productUpload = multer({ storage: productStorage });
 
-app.use(express.json()); // For parsing application/json
+app.use(express.json());
 
-// Route for image upload
 app.post("/website", productUpload.array("website", 6), (req, res) => {
   let imageUrls = req.files.map(
     (file) => `http://localhost:4000/images/${file.filename}`
@@ -166,20 +157,15 @@ app.post("/website", productUpload.array("website", 6), (req, res) => {
 
 app.use("/images", express.static("upload/images"));
 
-///
-
-// Setup multer storage engine
 const sstorage = multer.diskStorage({
   destination: path.join(__dirname, "upload/images"),
   filename: (req, file, cb) => {
-    // Use a fixed name "modle_image" and append the original file extension
     cb(null, `modle_image${path.extname(file.originalname)}`);
   },
 });
 
 const supload = multer({ storage: sstorage });
 
-// Create an endpoint for image upload
 app.post("/uploadeds", supload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: 0, message: "No file uploaded" });
@@ -195,7 +181,6 @@ app.post("/uploadeds", supload.single("image"), (req, res) => {
   });
 });
 
-// Serve static files from the "upload/images" directory
 app.use("/images", express.static(path.join(__dirname, "upload/images")));
 app.use("/models", express.static(path.join(__dirname, "models")));
 // const websiteUpload = multer({ storage: websiteStorage });
